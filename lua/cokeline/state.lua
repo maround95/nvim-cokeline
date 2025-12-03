@@ -22,4 +22,7 @@ M.sidebar = {}
 ---@type Component<TabPage>[]
 M.tabs = {}
 
+---@type integer|nil
+M.width = nil  -- cache render width
+
 return M

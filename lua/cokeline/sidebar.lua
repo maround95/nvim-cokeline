@@ -110,7 +110,8 @@ local get_components = function(side)
     bufnr = bufnr,
     name = fn.bufname(4),
   })
-  local sidebar_width = min(api.nvim_win_get_width(winid), o.columns)
+  local render_width = state.width or o.columns
+  local sidebar_width = min(api.nvim_win_get_width(winid), render_width)
 
   local sidebar_components = {}
   local width = 0
@@ -124,8 +125,8 @@ local get_components = function(side)
   for _, c in ipairs(state.sidebar) do
     c.sidebar = side
     buffer.is_hovered = hover ~= nil
-      and hover.index == id
-      and hover.bufnr == buffer.number
+        and hover.index == id
+        and hover.bufnr == buffer.number
     local component = c:render(RenderContext:buffer(buffer))
     buffer.is_hovered = false
     -- We need at least one component, otherwise we can't add padding to the
@@ -147,9 +148,9 @@ local get_components = function(side)
     local space_left = sidebar_width - width
     local last = #sidebar_components
     sidebar_components[last].text = sidebar_components[last].text
-      .. rep(" ", space_left)
+        .. rep(" ", space_left)
     sidebar_components[last].width = sidebar_components[last].width
-      + space_left
+        + space_left
   end
 
   return sidebar_components

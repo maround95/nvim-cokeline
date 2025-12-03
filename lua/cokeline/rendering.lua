@@ -107,7 +107,8 @@ local prepare = function(visible_buffers)
   local sidebar_components_l = sidebar.get_components("left")
   local sidebar_components_r = sidebar.get_components("right")
   local rhs_components = rhs.get_components()
-  local available_width = o.columns - components.width(sidebar_components_l)
+  local total_width = state.width or o.columns
+  local available_width = total_width - components.width(sidebar_components_l)
   if available_width == 0 then
     return components.render(sidebar_components_l)
   end

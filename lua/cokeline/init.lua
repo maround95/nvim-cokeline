@@ -18,7 +18,9 @@ local setup = function(opts)
   require("cokeline.hover").setup()
   require("cokeline.augroups").setup()
 
-  opt.showtabline = 2
+  if config.get().manage_showtabline then
+    opt.showtabline = 2
+  end
   opt.tabline = "%!v:lua.cokeline.tabline()"
 end
 
@@ -26,7 +28,9 @@ end
 _G.cokeline.tabline = function()
   local visible_buffers = require("cokeline.buffers").get_visible()
   if #visible_buffers < config.show_if_buffers_are_at_least then
-    opt.showtabline = 0
+    if config.get().manage_showtabline then
+      opt.showtabline = 0
+    end
     return ""
   end
   return rendering.render(visible_buffers, config.fill_hl)

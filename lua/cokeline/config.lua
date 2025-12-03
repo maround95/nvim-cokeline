@@ -13,6 +13,7 @@ local islist = vim.islist or vim.tbl_islist
 
 local defaults = {
   show_if_buffers_are_at_least = 1,
+  manage_showtabline = true,
 
   buffers = {
     filter_valid = false,
@@ -35,6 +36,11 @@ local defaults = {
   rendering = {
     max_buffer_width = 999,
     slider = sliders.center_current_buffer,
+
+    --- @return integer
+    get_width = function()
+      return vim.o.columns
+    end
   },
 
   pick = {
